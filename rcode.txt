@@ -1,0 +1,18 @@
+setwd("C://Users//ACER//Desktop//spark")
+df = read.csv('CountingVar.csv')
+
+library(dplyr)
+library(TSA)
+x = df %>% select(-c(fraud_count,X,step))
+x
+y  = df %>% select(fraud_count)
+
+
+par(mfrow = c(2, 3)) 
+prewhiten(df$Payment,df$fraud_count, main = "CCF of Payment Vs Fraud Count")
+prewhiten(df$CashIn,df$fraud_count , main = "CCF of CashIn Vs Fraud Count")
+prewhiten(df$CashOut,df$fraud_count,  main = "CCF of CashOut Vs Fraud Count")
+prewhiten(df$Transfer,df$fraud_count, main = "CCF of Transfer Vs Fraud Count")
+prewhiten(df$Debit,df$fraud_count,  main = "CCF of Debit Vs Fraud Count")
+
+pacf(df$fraud_count, main = "PACF of Fraud Count")
